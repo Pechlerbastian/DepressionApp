@@ -16,7 +16,7 @@ if __name__ == '__main__':
     parser = DataParser(['filename', 'PatientGroup', 'SubjectID', 'TrialGroup', 'TrialValence', 'ReappraisalID', 'Try', 'ProvidedFeedback'],
                         ['VoiceRating'])
     model_dir = 'model/'
-    files, targets = parser.load_labels()
+    files, targets = parser.load_data()
     X = np.asarray(files[0])
     y = targets
     f = open('hyper_param.json')
@@ -30,7 +30,7 @@ if __name__ == '__main__':
 
     hyp_params = HyperParameterList(config_file_name='hyper_param.json')
     parser = DataParser(['filename', 'PatientGroup', 'SubjectID', 'TrialGroup', 'TrialValence', 'ReappraisalID', 'Try', 'ProvidedFeedback'],
-                        ['VoiceRating']).parse_labels()
+                        ['VoiceRating'])
     for i in range(10):
         tensorboard_dir = hyp_params.get_values(iteration_no=i)['tb_experiment']
 
@@ -46,10 +46,10 @@ if __name__ == '__main__':
                                            hparams=hyp_params.get_values(iteration_no=i), run_id=i)
         train_data = parser.parse_labels()
         train_data_pipeline.set_data(train_data)
-        train_data_pipeline.set_filename_prepend(prepend_filename_str=data_dir)
+        train_data_pipeline.set_filename_prepend(prepend_filename_str="FeedbackExperiment/Control/Kontrollgruppe/AM0767/Negative")
         train_data_pipeline.preprocess()
         train_data_pipeline.up_sample()
-        train_dataset = train_data_pipeline.pipeline(cache=enable_cache)
+        train_dataset = train_data_pipeline.pipeline(cache=True)
 
         print(train_data_pipeline.get_filenames())
 
