@@ -1,7 +1,7 @@
 {
-    "label_parser":     ["../lib/data/parser/ComParEParser.py:ComParEParser"],
+    "label_parser":     ["./DataParser.py:DataParser"],
     "model_name":       ["TransferBaseModel"],
-    "prediction_type":  ["categorical"],
+    "prediction_type":  ["regression"],
     "basemodel_name":   ["densenet121"],
     "weights":          ["imagenet"],
     "tb_experiment":    ["densenet_iemocap"],
@@ -12,7 +12,7 @@
     "learning_rate":    [0.001],
     "fine_learning_rate": [0.0001],
     "finetune_layer":   [0.7],
-    "loss":             ["categorical_crossentropy"],
+    "loss":             ["mse"],
     "activation":       ["arelu"],
     "pre_epochs":       [40],
     "epochs":           [100],
